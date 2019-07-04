@@ -3,7 +3,7 @@ from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, date_of_birth, password=None):
+    def create_user(self, email, date_of_birth=None, password=None):
         if not email:
             raise ValueError('Users must have an email address')
 
@@ -16,7 +16,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, date_of_birth, password):
+    def create_superuser(self, email, password, date_of_birth=None):
         user = self.create_user(
             email,
             password=password,
@@ -33,14 +33,15 @@ class User(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
-    date_of_birth = models.DateField()
+    nickname = models.CharField(max_length=30)
+    date_of_birth = models.DateField(null=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['date_of_birth']
+    USERNAME_FIELD = 'email'            #username으로 사용된다. 반드시 unique일것
+    REQUIRED_FIELDS = ['date_of_birth', 'nickname'] #when createsuperuser시만 사용한다.
 
     def __str__(self):
         return self.email

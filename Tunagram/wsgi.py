@@ -1,5 +1,5 @@
 """
-WSGI config for django_custom_user_model project.
+WSGI config for Tunagram project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_custom_user_model.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Tunagram.settings')
 
 application = get_wsgi_application()
