@@ -9,13 +9,16 @@ from post.serializer import *
 from rest_framework.response import Response
 from comment.serializer import *
 from comment.models import Comment
-
+from rest_framework.pagination import PageNumberPagination
+from comment.paginator import CommentPaginator
 class CommentListView(APIView):
     def get(self, request, pk, format=None):
         post=Post.objects.get(pk=pk)
         comments = post.all_comments()
-        serializer = CommentSerializer(comments, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        paginator = CommentPaginator()
+        result = paginator.paginate_queryset(comments, request)
+        serializer = CommentSerializer(result, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
     def post(self, request, pk, format=None):
         serializer = CommentCreateUpdateSerializer(data=request.data)
