@@ -52,20 +52,3 @@ class PostViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-
-
-def user_list(request):
-    queryset = User.objects.all()
-    paginator = Paginator(queryset, 20)
-
-    page = request.QUERY_PARAMS.get('page')
-   
-
-    serializer_context = {'request': request}
-    serializer = PaginatedUserSerializer(users,
-                                         context=serializer_context)
-    return Response(serializer.data)

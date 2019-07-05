@@ -9,9 +9,12 @@ from post.serializer import *
 from rest_framework.response import Response
 from comment.serializer import *
 from comment.models import Comment
-from rest_framework.pagination import PageNumberPagination
 from comment.paginator import CommentPaginator
+from comment.permissions import IsOwnerOrReadOnly
+
 class CommentListView(APIView):
+    permission_classes = (IsOwnerOrReadOnly,)
+
     def get(self, request, pk, format=None):
         post=Post.objects.get(pk=pk)
         comments = post.all_comments()
@@ -28,6 +31,8 @@ class CommentListView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CommentDetailView(APIView):
+    permission_classes = (IsOwnerOrReadOnly,)
+    
     def patch(self, request, pk, format=None):
         serializer = CommentCreateUpdateSerializer(Comment.objects.get(pk=pk), data=request.data, partial=True)
         if serializer.is_valid():
