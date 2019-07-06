@@ -43,6 +43,13 @@ INSTALLED_APPS = [
     'comment',
     'rest_framework',
     'rest_framework_jwt',
+
+    #OAuth
+    'django.contrib.sites', # <- 의존성 앱
+    'allauth', # <- 추가
+    'allauth.account', # <- 추가
+    'allauth.socialaccount', # <- 추가
+    'allauth.socialaccount.providers.google'
 ]
 
 MIDDLEWARE = [
@@ -70,6 +77,16 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
+
+#######OAuth
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  # <- 디폴트 모델 백엔드
+    'allauth.account.auth_backends.AuthenticationBackend', # <- 추가
+)
+
+SITE_ID = 1
+############
+
 
 ROOT_URLCONF = 'Tunagram.urls'
 
