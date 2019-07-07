@@ -1,5 +1,5 @@
 from django.db import models
-from account.models import User
+from tunagramAuth.models import User
 from post.models import Post
 
 class Comment(models.Model):

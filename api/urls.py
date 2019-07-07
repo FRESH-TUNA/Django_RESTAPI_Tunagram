@@ -1,7 +1,7 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 urlpatterns = [
-    path('account/', include('account.urls')),
+    path('tunagramAuth/', include('tunagramAuth.urls')),
     path('', include('post.urls')),
     path('', include('comment.urls')),
 ]

@@ -3,16 +3,18 @@ from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework import status, viewsets
 from post.models import Post
-from account.models import User
+from tunagramAuth.models import User
 from post.serializer import *
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from post.paginator import PostPaginator
+from comment.permissions import IsOwnerOrReadOnly
 import logging
+
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostCreateUpdateSerializer
-    # permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsOwnerOrReadOnly,)
 
     def retrieve(self, request, pk, format=None):
         serializer = PostDetailSerializer(Post.objects.get(pk=pk))

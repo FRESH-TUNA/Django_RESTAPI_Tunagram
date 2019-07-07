@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from post.models import Post
-from account.serializer import UserSerializer
+from tunagramAuth.serializer import UserSerializer
 
 
 class PostListSerializer(serializers.ModelSerializer):

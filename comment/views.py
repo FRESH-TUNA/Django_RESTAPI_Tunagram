@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from rest_framework import status
 from rest_framework.views import APIView
 from post.models import Post
-from account.models import User
+from tunagramAuth.models import User
 from post.serializer import *
 from rest_framework.response import Response
 from comment.serializer import *

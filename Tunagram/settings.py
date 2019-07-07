@@ -33,19 +33,20 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites', # <- 의존성 앱
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api',
-    'account',
+    'tunagramAuth',
     'post',
     'comment',
     'rest_framework',
     'rest_framework_jwt',
 
     #OAuth
-    'django.contrib.sites', # <- 의존성 앱
+    
     'allauth', # <- 추가
     'allauth.account', # <- 추가
     'allauth.socialaccount', # <- 추가
@@ -79,12 +80,24 @@ REST_FRAMEWORK = {
 }
 
 #######OAuth
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',  # <- 디폴트 모델 백엔드
-    'allauth.account.auth_backends.AuthenticationBackend', # <- 추가
-)
+# AUTHENTICATION_BACKENDS = (
+#     'django.contrib.auth.backends.ModelBackend',  # <- 디폴트 모델 백엔드
+#     'allauth.account.auth_backends.AuthenticationBackend', # <- 추가
+# )
+# AUTHENTICATION_BACKENDS = ( # Needed to login by username in Django admin, regardless of 'allauth' 
+#     'django.contrib.auth.backends.ModelBackend', 
+#     # 'allauth' specific authentication methods, such as login by email 
+#     'allauth.account.auth_backends.AuthenticationBackend', 
+# )
 
-SITE_ID = 1
+SITE_ID = 2
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
+
+LOGIN_REDIRECT_URL = '/api/post'
 ############
 
 
@@ -159,4 +172,4 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'tunagramAuth.User'

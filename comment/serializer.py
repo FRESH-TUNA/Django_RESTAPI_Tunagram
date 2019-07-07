@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from comment.models import Comment
-from account.serializer import UserSerializer
+from tunagramAuth.serializer import UserSerializer
 
 class CommentSerializer(serializers.ModelSerializer):
     nickname = serializers.ReadOnlyField()  

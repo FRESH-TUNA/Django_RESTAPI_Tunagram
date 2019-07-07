@@ -11,5 +11,6 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         # so we'll always allow GET, HEAD or OPTIONS requests.
         if request.method in permissions.SAFE_METHODS:
             return True
+        else:
         # Write permissions are only allowed to the owner of the snippet.
-        return obj.owner == request.user | request.user.is_admin
+            return obj.user == request.user or request.user.is_staff
