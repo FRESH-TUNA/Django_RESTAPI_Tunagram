@@ -10,6 +10,7 @@ from rest_framework.pagination import PageNumberPagination
 from post.paginator import PostPaginator
 from comment.permissions import IsOwnerOrReadOnly
 import logging
+from rest_framework.decorators import action
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
@@ -54,3 +55,8 @@ class PostViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['post'], detail=True, permission_classes=[IsOwnerOrReadOnly])
+    def like(self, request, pk=None):
+        pass
+        

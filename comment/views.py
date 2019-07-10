@@ -11,6 +11,7 @@ from comment.serializer import *
 from comment.models import Comment
 from comment.paginator import CommentPaginator
 from comment.permissions import IsOwnerOrReadOnly
+from rest_framework.decorators import action
 
 class CommentListView(APIView):
     permission_classes = (IsOwnerOrReadOnly,)
@@ -44,3 +45,7 @@ class CommentDetailView(APIView):
         comment = Comment.objects.get(pk=pk)
         comment.delete()
         return Response({'comment':'deleted'}, status=status.HTTP_204_NO_CONTENT)
+
+    @action(methods=['post'], detail=True, permission_classes=[IsOwnerOrReadOnly])
+    def like(self, request, pk=None):
+        pass
