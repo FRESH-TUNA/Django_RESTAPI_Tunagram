@@ -10,8 +10,8 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('email', 'date_of_birth', 'is_admin')
-    list_filter = ('is_admin',)
+    list_display = ('email', 'date_of_birth', 'is_admin')           #list화면에서 보여질것  
+    list_filter = ('is_admin',)                                     #list화면에서 admin 여부
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Personal info', {'fields': ('date_of_birth',)}),
@@ -21,7 +21,7 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2')}
+            'fields': ('email', 'date_of_birth', 'password1', 'password2')}         #admin에서 가입시 필요한것에 대해 기술한다.
         ),
     )
     search_fields = ('email',)
